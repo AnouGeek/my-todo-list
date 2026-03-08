@@ -1,4 +1,10 @@
+import { useState } from "react";
+
 function App() {
+  const [tasks, setTasks] = useState([
+    { id: 1, text: "Do the shopping", completed: false },
+    { id: 2, text: "Learn React", completed: false },
+  ]);
   return (
     <div className="min-h-screen bg-gray-400 flex justify-center items-center">
       <div className="max-w-4xl bg-gray-50 rounded-lg shadow-md p-8 flex flex-col gap-4">
@@ -15,14 +21,12 @@ function App() {
           </button>
         </div>
         <ul className="flex flex-col gap-3">
-          <li className="flex items-center gap-2">
-            <input type="checkbox" />
-            Do the shopping
-          </li>
-          <li className="flex items-center gap-2">
-            <input type="checkbox" />
-            Learn React
-          </li>
+          {tasks.map((task) => (
+            <li className="flex items-center gap-2" key={task.id}>
+              <input type="checkbox" />
+              {task.text}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
