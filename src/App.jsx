@@ -9,11 +9,16 @@ function App() {
   const [newTask, setNewTask] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    if(newTask.trim() === "") return
-    setTasks([...tasks, {id: Date.now(), text: newTask, completed: false}])
-    setNewTask("")
-  };    
+    e.preventDefault();
+    if (newTask.trim() === "") return;
+    setTasks([...tasks, { id: Date.now(), text: newTask, completed: false }]);
+    setNewTask("");
+  };
+
+  function handleDelete(id) {
+    const taskDeleted = tasks.filter((task) => task.id !== id);
+    setTasks(taskDeleted);
+  }
 
   return (
     <div className="min-h-screen bg-gray-400 flex justify-center items-center">
@@ -34,9 +39,15 @@ function App() {
         </form>
         <ul className="flex flex-col gap-3">
           {tasks.map((task) => (
-            <li className="flex items-center gap-2" key={task.id}>
+            <li className="flex items-center gap-2 font-open" key={task.id}>
               <input type="checkbox" />
               {task.text}
+              <button
+                onClick={() => handleDelete(task.id)}
+                className="px-2 py-1 bg-red-600 text-gray-200 rounded-md hover:bg-red-700 transition cursor-pointer font-inter ml-auto"
+              >
+                Delete
+              </button>
             </li>
           ))}
         </ul>
