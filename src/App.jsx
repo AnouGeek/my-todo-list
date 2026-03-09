@@ -19,6 +19,13 @@ function App() {
     const taskDeleted = tasks.filter((task) => task.id !== id);
     setTasks(taskDeleted);
   }
+  /** on enclenche le toggle task en fonction de l'id, on renvoie le l'ancien tableau , je sais pas :s */
+  const toggleTask = (id) => { 
+    setTasks(tasks.map(task => (
+      task.id === id ? {...task, completed: !task.completed } : task
+    )))
+   }
+  
 
   return (
     <div className="min-h-screen bg-gray-400 flex justify-center items-center">
@@ -40,8 +47,11 @@ function App() {
         <ul className="flex flex-col gap-3">
           {tasks.map((task) => (
             <li className="flex items-center gap-2 font-open" key={task.id}>
-              <input type="checkbox" />
-              {task.text}
+              <input 
+              checked={task.completed}
+              onChange={() => toggleTask(task.id)}
+              type="checkbox" />
+              <span className={`${task.completed ? "line-through text-purple-400" : "" }  `}>{task.text}</span>
               <button
                 onClick={() => handleDelete(task.id)}
                 className="px-2 py-1 bg-red-600 text-gray-200 rounded-md hover:bg-red-700 transition cursor-pointer font-inter ml-auto"
